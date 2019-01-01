@@ -39,6 +39,23 @@ function shuffle(array) {
 
 var moves = 0;
 
+function rateGame() {
+  var starContainer = document.getElementById("stars");
+
+  if (moves <= 12) {
+    starContainer.innerHTML =
+      "<li><i class='fa fa-star'></i></li>" +
+      "<li><i class='fa fa-star'></i></li>" +
+      "<li><i class='fa fa-star'></i></li>";
+  } else if (moves <= 18) {
+    starContainer.innerHTML =
+      "<li><i class='fa fa-star'></i></li>" +
+      "<li><i class='fa fa-star'></i></li>";
+  } else {
+    starContainer.innerHTML = "<li><i class='fa fa-star'></i></li>";
+  }
+}
+
 function showCard(card) {
   card.classList.add("open");
   card.classList.add("show");
@@ -57,6 +74,7 @@ function matchCard(card) {
 
 function addMoves() {
   moves++;
+  rateGame();
   document.getElementById("moves").innerHTML = moves;
 }
 
