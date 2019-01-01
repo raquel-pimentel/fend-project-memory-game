@@ -41,3 +41,8 @@ function showCard(card) {
   card.classList.add("open");
   card.classList.add("show");
 }
+
+function hideCard(card) {
+  card.classList.remove("open");
+  card.classList.remove("show");
+}
