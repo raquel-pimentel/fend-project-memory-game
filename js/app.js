@@ -37,6 +37,8 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+var moves = 0;
+
 function showCard(card) {
   card.classList.add("open");
   card.classList.add("show");
@@ -45,4 +47,53 @@ function showCard(card) {
 function hideCard(card) {
   card.classList.remove("open");
   card.classList.remove("show");
+}
+
+function matchCard(card) {
+  card.classList.remove("open");
+  card.classList.remove("show");
+  card.classList.add("match");
+}
+
+function addMoves() {
+  moves++;
+  document.getElementById("moves").innerHTML = moves;
+}
+
+function compareCards(card) {
+  if (card.classList.contains("open") || card.classList.contains("match")) {
+    return null;
+  }
+  var deck = document.getElementById("deck").children;
+  var cardCount = deck.length;
+  var openCard = null;
+  var openCardCount = 0;
+
+  for (var i = 0; i < cardCount; i++) {
+    if (deck[i].classList.contains("open")) {
+      openCard = deck[i];
+      openCardCount++;
+    }
+  }
+
+  if (openCardCount > 1) {
+    return null;
+  }
+
+  showCard(card);
+  if (openCardCount === 1) {
+    addMoves();
+    var selectedCardValue = card.children[0].classList.item(1);
+    var openCardValue = openCard.children[0].classList.item(1);
+
+    if (selectedCardValue === openCardValue) {
+      matchCard(card);
+      matchCard(openCard);
+    } else {
+      setTimeout(function() {
+        hideCard(card);
+        hideCard(openCard);
+      }, 1500);
+    }
+  }
 }
