@@ -17,31 +17,6 @@ var cardList = [
   "fa-cube"
 ];
 
-function loadGame() {
-  var deck = document.getElementById("deck");
-  for (var item = 0; item < cardList.length; item++) {
-    var li = document.createElement("LI");
-    li.setAttribute("class", "card");
-    li.setAttribute("onclick", "compareCards(this)");
-
-    var icon = document.createElement("i");
-    icon.setAttribute("class", "fa " + cardList[item]);
-
-    li.appendChild(icon);
-    deck.appendChild(li);
-  }
-}
-
-loadGame();
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -57,6 +32,24 @@ function shuffle(array) {
 
   return array;
 }
+
+function loadGame() {
+  var shuffledCards = shuffle(cardList);
+  var deck = document.getElementById("deck");
+  for (var item = 0; item < shuffledCards.length; item++) {
+    var li = document.createElement("LI");
+    li.setAttribute("class", "card");
+    li.setAttribute("onclick", "compareCards(this)");
+
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "fa " + shuffledCards[item]);
+
+    li.appendChild(icon);
+    deck.appendChild(li);
+  }
+}
+
+loadGame();
 
 /*
  * set up the event listener for a card. If a card is clicked:
