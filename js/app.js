@@ -33,11 +33,18 @@ function shuffle(array) {
   return array;
 }
 
+function clearTable(deck) {
+  while (deck.lastChild) {
+    deck.removeChild(deck.lastChild);
+  }
+}
+
 function loadGame() {
   var shuffledCards = shuffle(cardList);
   var deck = document.getElementById("deck");
+  clearTable(deck);
   for (var item = 0; item < shuffledCards.length; item++) {
-    var li = document.createElement("LI");
+    var li = document.createElement("li");
     li.setAttribute("class", "card");
     li.setAttribute("onclick", "compareCards(this)");
 
