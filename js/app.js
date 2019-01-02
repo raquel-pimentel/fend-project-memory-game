@@ -1,6 +1,38 @@
-/*
- * Create a list that holds all of your cards
- */
+var cardList = [
+  "fa-diamond",
+  "fa-paper-plane-o",
+  "fa-anchor",
+  "fa-bolt",
+  "fa-cube",
+  "fa-anchor",
+  "fa-leaf",
+  "fa-bicycle",
+  "fa-diamond",
+  "fa-bomb",
+  "fa-leaf",
+  "fa-bomb",
+  "fa-bolt",
+  "fa-bicycle",
+  "fa-paper-plane-o",
+  "fa-cube"
+];
+
+function loadGame() {
+  var deck = document.getElementById("deck");
+  for (var item = 0; item < cardList.length; item++) {
+    var li = document.createElement("LI");
+    li.setAttribute("class", "card");
+    li.setAttribute("onclick", "compareCards(this)");
+
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "fa " + cardList[item]);
+
+    li.appendChild(icon);
+    deck.appendChild(li);
+  }
+}
+
+loadGame();
 
 /*
  * Display the cards on the page
