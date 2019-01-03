@@ -17,6 +17,8 @@ var cardList = [
   "fa-cube"
 ];
 
+var timer = 0;
+
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -39,6 +41,24 @@ function clearTable(deck) {
   }
 }
 
+// Clock
+function addTimer(clock) {
+  setTimeout(function() {
+    timer++;
+    var date = new Date(timer * 1000);
+    var seconds = date.getSeconds();
+    var counter = date.getMinutes() + ":" + (seconds < 10 ? "0" : "") + seconds;
+    clock.innerHTML = counter;
+    addTimer(clock);
+  }, 1000);
+}
+
+function clockCounter() {
+  var clock = document.getElementById("clockCounter");
+  addTimer(clock);
+}
+//
+
 function loadGame() {
   var shuffledCards = shuffle(cardList);
   var deck = document.getElementById("deck");
@@ -54,6 +74,7 @@ function loadGame() {
     li.appendChild(icon);
     deck.appendChild(li);
   }
+  clockCounter();
 }
 
 loadGame();
