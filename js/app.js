@@ -1,3 +1,4 @@
+/** Inicializa lista de cartas disponíveis no jogo */
 var cardList = [
   "fa-diamond",
   "fa-paper-plane-o",
@@ -47,6 +48,21 @@ function clearTable(deck) {
   }
 }
 
+function createTable(deck) {
+  var shuffledCards = shuffle(cardList);
+  for (var item = 0; item < shuffledCards.length; item++) {
+    var li = document.createElement("li");
+    li.setAttribute("class", "card");
+    li.setAttribute("onclick", "validateCard(this)");
+
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "fa " + shuffledCards[item]);
+
+    li.appendChild(icon);
+    deck.appendChild(li);
+  }
+}
+
 // Clock
 
 function formatTimer() {
@@ -79,20 +95,9 @@ function clearTimer() {
 //
 
 function loadGame() {
-  var shuffledCards = shuffle(cardList);
   var deck = document.getElementById("deck");
   clearTable(deck);
-  for (var item = 0; item < shuffledCards.length; item++) {
-    var li = document.createElement("li");
-    li.setAttribute("class", "card");
-    li.setAttribute("onclick", "validateCard(this)");
-
-    var icon = document.createElement("i");
-    icon.setAttribute("class", "fa " + shuffledCards[item]);
-
-    li.appendChild(icon);
-    deck.appendChild(li);
-  }
+  createTable(deck);
   clockCounter();
 }
 
