@@ -2,14 +2,11 @@ html {
     box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
     box-sizing: inherit;
 }
 
-html,
-body {
+html, body {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -17,7 +14,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background: #ffffff url('../img/geometry2.png');
+    /* Background pattern from Subtle Patterns */
     font-family: 'Coda', cursive;
 }
 
@@ -91,14 +89,14 @@ h1 {
     margin-bottom: 10px;
 }
 
-.score-panel .stars {
+.score-panel .stars, #finalStar {
     margin: 0;
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
 }
 
-.score-panel .stars li {
+.score-panel .stars li, #finalStar li {
     list-style: none;
     display: inline-block;
 }
@@ -106,4 +104,38 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+#modal {
+    display: none;
+    background-color: #FFFFFF;
+    width: 80%;
+    height: 60%;
+    border: 1px solid black;
+    position: absolute;
+    top: 10vh;
+    left: calc(100vw - 90%);
+    padding: 20px 40px;
+    box-sizing: border-box;
+}
+
+#shadow {
+    display: none;
+    background-color: rgba(46, 61, 73, 0.9);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+}
+
+@media screen and (max-width: 600px) {
+    h1 {
+        font-size: 50px;
+    }
+    .deck {
+        width: 80%;
+    }
+    .fa {
+        font-size: 50px;
+    }
 }

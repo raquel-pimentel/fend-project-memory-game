@@ -27,7 +27,7 @@
 
                 <span class="moves" id="moves">0</span> Moves
 
-                <div class="restart" onClick="loadGame()">
+                <div class="restart" onClick="restartGame()">
                     <i class="fa fa-repeat"></i>
                 </div>
             </section>
@@ -35,7 +35,13 @@
             <ul class="deck" id="deck">
             </ul>
         </div>
-
+        <div id="shadow"></div>
+        <div id="modal">
+            <h1>Parabéns, você ganhou</h1>
+            <p>O seu total de estrelas foi:<ul id="finalStar"></ul></p>
+            <p>O seu tempo foi de:<span id="finalTime"></span></p>
+            <button onclick="restartGame()">Começar novo jogo?</button>
+        </div>
         <script src="js/app.js"></script>
     </body>
 </html>

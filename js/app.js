@@ -19,6 +19,12 @@ var cardList = [
 
 var timer = 0;
 
+var interval = false;
+
+var moves = 0;
+
+var points = 0;
+
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -42,21 +48,34 @@ function clearTable(deck) {
 }
 
 // Clock
+
+function formatTimer() {
+  var date = new Date(timer * 1000);
+  var seconds = date.getSeconds();
+  return date.getMinutes() + ":" + (seconds < 10 ? "0" : "") + seconds;
+}
+
 function addTimer(clock) {
-  setTimeout(function() {
+  interval = setInterval(function() {
     timer++;
-    var date = new Date(timer * 1000);
-    var seconds = date.getSeconds();
-    var counter = date.getMinutes() + ":" + (seconds < 10 ? "0" : "") + seconds;
-    clock.innerHTML = counter;
-    addTimer(clock);
+    clock.innerHTML = formatTimer();
   }, 1000);
+}
+
+function stopCounter() {
+  clearInterval(interval);
 }
 
 function clockCounter() {
   var clock = document.getElementById("clockCounter");
   addTimer(clock);
 }
+
+function clearTimer() {
+  timer = 0;
+  document.getElementById("clockCounter").innerHTML = "0:00";
+}
+
 //
 
 function loadGame() {
@@ -66,7 +85,7 @@ function loadGame() {
   for (var item = 0; item < shuffledCards.length; item++) {
     var li = document.createElement("li");
     li.setAttribute("class", "card");
-    li.setAttribute("onclick", "compareCards(this)");
+    li.setAttribute("onclick", "validateCard(this)");
 
     var icon = document.createElement("i");
     icon.setAttribute("class", "fa " + shuffledCards[item]);
@@ -77,24 +96,19 @@ function loadGame() {
   clockCounter();
 }
 
+function restartGame() {
+  closeModal();
+  stopCounter();
+  clearTimer();
+  clearMoves();
+  setTimeout(function() {
+    loadGame();
+  }, 500);
+}
+
 loadGame();
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
-var moves = 0;
-
-function rateGame() {
-  var starContainer = document.getElementById("stars");
-
+function rateGame(starContainer) {
   if (moves <= 12) {
     starContainer.innerHTML =
       "<li><i class='fa fa-star'></i></li>" +
@@ -127,11 +141,56 @@ function matchCard(card) {
 
 function addMoves() {
   moves++;
-  rateGame();
+  rateGame(document.getElementById("stars"));
   document.getElementById("moves").innerHTML = moves;
 }
 
-function compareCards(card) {
+function clearMoves() {
+  moves = 0;
+  document.getElementById("moves").innerHTML = "0";
+}
+
+function checkScore() {
+  points++;
+  if (points === cardList.length / 2) {
+    winGame();
+  }
+}
+
+function winGame() {
+  stopCounter();
+  showModal();
+}
+
+function showModal() {
+  document.getElementById("modal").style.display = "block";
+  document.getElementById("shadow").style.display = "block";
+  document.getElementById("finalTime").innerHTML = formatTimer();
+  rateGame(document.getElementById("finalStar"));
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+  document.getElementById("shadow").style.display = "none";
+}
+
+function compareCards(card, openCard) {
+  var selectedCardValue = card.children[0].classList.item(1);
+  var openCardValue = openCard.children[0].classList.item(1);
+
+  if (selectedCardValue === openCardValue) {
+    matchCard(card);
+    matchCard(openCard);
+    checkScore();
+  } else {
+    setTimeout(function() {
+      hideCard(card);
+      hideCard(openCard);
+    }, 1000);
+  }
+}
+
+function validateCard(card) {
   if (card.classList.contains("open") || card.classList.contains("match")) {
     return null;
   }
@@ -153,18 +212,7 @@ function compareCards(card) {
 
   showCard(card);
   if (openCardCount === 1) {
+    compareCards(card, openCard);
     addMoves();
-    var selectedCardValue = card.children[0].classList.item(1);
-    var openCardValue = openCard.children[0].classList.item(1);
-
-    if (selectedCardValue === openCardValue) {
-      matchCard(card);
-      matchCard(openCard);
-    } else {
-      setTimeout(function() {
-        hideCard(card);
-        hideCard(openCard);
-      }, 1500);
-    }
   }
 }
