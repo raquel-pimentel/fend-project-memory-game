@@ -85,7 +85,8 @@ h1 {
 
 .score-panel {
     text-align: left;
-    width: 345px;
+    width: 90%;
+    max-width: 365px;
     margin-bottom: 10px;
 }
 
@@ -128,14 +129,23 @@ h1 {
     top: 0;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 690px) {
     h1 {
-        font-size: 50px;
+        word-break: break-word;
     }
     .deck {
-        width: 80%;
+        width: 100%;
+        padding: 15px 5px;
+        justify-content: space-evenly;
+        min-height: inherit;
+        min-width: 100%;
     }
-    .fa {
-        font-size: 50px;
+    .deck .card {
+        width: 22%;
+        height: calc(100vw/4*0.85);
+        margin: 6px 0;
+    }
+    #modal {
+        overflow: auto;
     }
 }
