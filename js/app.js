@@ -18,16 +18,19 @@ var cardList = [
   "fa-cube"
 ];
 
+/** Inicia timer sempre zerado */
 var timer = 0;
 
+/** Adiciona 1 segundo no timer*/
 var interval = false;
 
+/** Inicia uma partida sempre com 0 moves */
 var moves = 0;
 
+/** Inicia uma partida sempre com 0 pontos */
 var points = 0;
 
 /** Embaralha as cartas e disponibiliza como mesa de nova rodada */
-
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -66,7 +69,6 @@ function createTable(deck) {
 }
 
 /** Relógio contador de tempo do round*/
-
 function formatTimer() {
   var date = new Date(timer * 1000);
   var seconds = date.getSeconds();
@@ -95,7 +97,6 @@ function clearTimer() {
 }
 
 /** Carrega a rodada */
-
 function loadGame() {
   var deck = document.getElementById("deck");
   clearTable(deck);
@@ -104,7 +105,6 @@ function loadGame() {
 }
 
 /** Após finalização e chamada de modal, reinicia a rodada após clicar no botão iniciar novamente */
-
 function restartGame() {
   closeModal();
   stopCounter();
@@ -118,7 +118,6 @@ function restartGame() {
 loadGame();
 
 /** avaliação de performace baseada em quantidade de cliques */
-
 function rateGame(starContainer) {
   if (moves <= 12) {
     starContainer.innerHTML =
@@ -135,7 +134,6 @@ function rateGame(starContainer) {
 }
 
 /** contador de clicks para medir quantidade de movimentos dados na rodada*/
-
 function addMoves() {
   moves++;
   rateGame(document.getElementById("stars"));
@@ -174,7 +172,6 @@ function closeModal() {
 }
 
 /** compara as cartas escolhidas, avalia se elas são iguais ou não. Se for match verde, se não azul e fecha as opções escolhidas */
-
 function showCard(card) {
   card.classList.add("open");
   card.classList.add("show");
@@ -207,6 +204,7 @@ function compareCards(card, openCard) {
   }
 }
 
+/** Função de validação de cartas */
 function validateCard(card) {
   /** Se a primeira das cartas estiver azul ou verde, cancela a execução. */
   if (card.classList.contains("open") || card.classList.contains("match")) {
@@ -224,11 +222,13 @@ function validateCard(card) {
     }
   }
 
+  /** Näo permite que o usuário tenha mais de duas cartas abertas */
   if (openCardCount > 1) {
     return null;
   }
   showCard(card);
 
+  /** Execução só acontece se uma das cartas estiver aberta */
   if (openCardCount === 1) {
     compareCards(card, openCard);
     addMoves();

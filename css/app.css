@@ -129,7 +129,7 @@ h1 {
     background-color: rgba(46, 61, 73, 0.9);
     width: 100vw;
     height: 100vh;
-    position: absolute;
+    position: fixed;
     top: 0;
 }
 

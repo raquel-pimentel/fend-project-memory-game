@@ -1,20 +1,29 @@
-# Memory Game Project
+# Projeto - Jogo da Memória
 
-## Table of Contents
+Esse projeto foi desenvolvido para o curso de Nanodegree em Fundamentos de Front End na Udacity.
+O objetivo é construir a lógica do jogo da memória e pensar na experiência do usuário fazendo com que o jogo seja acessado em qualquer dispositivo.
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Regras do jogo
 
-## Instructions
+O objetivo do jogo é exercitar a memória procurando os pares das cartas entre as 16 oferecidas randomicamente a cada rodada.
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+        - O jogador deve virar uma carta para revelar seu símbolo
+        - Então, esse mesmo jogador deve virar outra carta, tentando encontrar a carta correspondente.
+        - Se as cartas forem iguais, ambas ficam viradas para cima
+        - Se as cartas não forem iguais, ambas devem ser viradas para baixo novamente
 
-To get started, open `js/app.js` and start building out the app's functionality
+Avaliação de performace
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+        - Se o jogador finalizar em até 12 tentativas, ele consegue avaliação máxima de 3 estrelas
+        - Entre 12 e 18 tentativas, o jogador alcança a avaliação de 2 estrelas.
+        - A partir de 18 tentativas, a avaliação será de 1 estrela
 
-## Contributing
+## Estrutura do Projeto
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+O projeto consiste em uma estrutura com html, css e javascript.
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+        - CSS tem a importante função de fazer com que tenhamos uma versão responsiva do jogo, além do estilo junto com cores, fontes e espaçamentos.
+
+        - Javascript traz a lógica para o jogo, além da interação entre objetos e funcionalidades como: avaliaçäo de performace, timer, loadgame, reset game e comparação entre cartas.
+
+        - HTML essencial para marcação e estruturação da informação, criação de objetos e funcionalidades estáticas que trabalhadas com Javascript retornam um produto com interatividade.
