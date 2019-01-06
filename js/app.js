@@ -26,6 +26,8 @@ var moves = 0;
 
 var points = 0;
 
+/** Embaralha as cartas e disponibiliza como mesa de nova rodada */
+
 function shuffle(array) {
   var currentIndex = array.length,
     temporaryValue,
@@ -63,7 +65,7 @@ function createTable(deck) {
   }
 }
 
-// Clock
+/** Relógio contador de tempo do round*/
 
 function formatTimer() {
   var date = new Date(timer * 1000);
@@ -92,7 +94,7 @@ function clearTimer() {
   document.getElementById("clockCounter").innerHTML = "0:00";
 }
 
-//
+/** Carrega a rodada */
 
 function loadGame() {
   var deck = document.getElementById("deck");
@@ -100,6 +102,8 @@ function loadGame() {
   createTable(deck);
   clockCounter();
 }
+
+/** Após finalização e chamada de modal, reinicia a rodada após clicar no botão iniciar novamente */
 
 function restartGame() {
   closeModal();
@@ -112,6 +116,8 @@ function restartGame() {
 }
 
 loadGame();
+
+/** avaliação de performace baseada em quantidade de cliques */
 
 function rateGame(starContainer) {
   if (moves <= 12) {
@@ -128,21 +134,7 @@ function rateGame(starContainer) {
   }
 }
 
-function showCard(card) {
-  card.classList.add("open");
-  card.classList.add("show");
-}
-
-function hideCard(card) {
-  card.classList.remove("open");
-  card.classList.remove("show");
-}
-
-function matchCard(card) {
-  card.classList.remove("open");
-  card.classList.remove("show");
-  card.classList.add("match");
-}
+/** contador de clicks para medir quantidade de movimentos dados na rodada*/
 
 function addMoves() {
   moves++;
@@ -154,6 +146,8 @@ function clearMoves() {
   moves = 0;
   document.getElementById("moves").innerHTML = "0";
 }
+
+/** balanço de pontos para finalização de rodada para inicir modal bom balanço final*/
 
 function checkScore() {
   points++;
@@ -179,6 +173,24 @@ function closeModal() {
   document.getElementById("shadow").style.display = "none";
 }
 
+/** compara as cartas escolhidas, avalia se elas são iguais ou não. Se for match verde, se não azul e fecha as opções escolhidas */
+
+function showCard(card) {
+  card.classList.add("open");
+  card.classList.add("show");
+}
+
+function hideCard(card) {
+  card.classList.remove("open");
+  card.classList.remove("show");
+}
+
+function matchCard(card) {
+  card.classList.remove("open");
+  card.classList.remove("show");
+  card.classList.add("match");
+}
+
 function compareCards(card, openCard) {
   var selectedCardValue = card.children[0].classList.item(1);
   var openCardValue = openCard.children[0].classList.item(1);
@@ -196,6 +208,7 @@ function compareCards(card, openCard) {
 }
 
 function validateCard(card) {
+  /** Se a primeira das cartas estiver azul ou verde, cancela a execução. */
   if (card.classList.contains("open") || card.classList.contains("match")) {
     return null;
   }
@@ -214,8 +227,8 @@ function validateCard(card) {
   if (openCardCount > 1) {
     return null;
   }
-
   showCard(card);
+
   if (openCardCount === 1) {
     compareCards(card, openCard);
     addMoves();

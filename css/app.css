@@ -88,6 +88,8 @@ h1 {
     width: 90%;
     max-width: 365px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .score-panel .stars, #finalStar {
@@ -118,6 +120,8 @@ h1 {
     left: calc(100vw - 90%);
     padding: 20px 40px;
     box-sizing: border-box;
+    overflow: auto;
+    text-align: center;
 }
 
 #shadow {
@@ -129,8 +133,37 @@ h1 {
     top: 0;
 }
 
+.clockCounter {
+    min-width: 60px;
+}
+
+button {
+    background-color: #997BC1;
+    padding: 20px 14px;
+    box-shadow: none;
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 18px;
+    border: none;
+    width: 34%;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2FADB7;
+}
+
+#finalTime {
+    font-size: 26px;
+    margin-top: 0px;
+}
+
+#finalStar li {
+    font-size: 30px;
+}
+
 @media screen and (max-width: 690px) {
-    h1 {
+    h2 {
         word-break: break-word;
     }
     .deck {
@@ -147,5 +180,10 @@ h1 {
     }
     #modal {
         overflow: auto;
+        text-align: center;
+        height: 80%;
+    }
+    button {
+        width: 100%;
     }
 }
